@@ -5,6 +5,9 @@
  TO DO
  1 Show which questions were correct using a table and CSS
  2 Animate question transition with JQuery
+ 3 Store in an external JSON file
+ 4 Add user authentication: allow users to log in, save login credentials to local storage (HTML5 browser storage)
+ 5 Test on IE 8/9, fix bugs
  */
 
 var questionID, numCorrect,
@@ -13,11 +16,8 @@ var questionID, numCorrect,
 var start = $("#start"), back = $("#back"),
     next = $("#next"), both = back.add(next),
     options = $("#options"), question = $("#question"),
+    questionBox = $("#questionBox"),
     text = $("p"), textEntry = $("p input");
-
-var fadeDuration = 4000;
-
-//jQuery.fx.on();
 
 // Add a question to the given array (correct denotes the correct answer's index)
 questions.addQuestion = function(question, choices, correct) {
@@ -34,12 +34,18 @@ questions.addQuestion = function(question, choices, correct) {
 scores.scoreAnswer = function () {
     var correctIndex = questions[questionID].correct;
     if(answers[questionID] === correctIndex) this.push(1);
-    else this.push(0);
+else this.push(0);
 };
 
-questions.addQuestion("Which Star Wars episode is the best?", ["1", "2", "3", "4", "5", "6", "7"], 0);
 
-questions.addQuestion("Which movie is better?", ["Shrek", "Inception"], 0);
+questions.addQuestion(
+    "Which Star Wars episode is the best?",
+    ["1", "2", "3", "4", "5", "6", "7"],
+    0);
+questions.addQuestion(
+    "Which movie is better?",
+    ["Shrek", "Inception"],
+    0);
 
 // If the cookie already exists, greet them!
 if(document.cookie !== "") {
@@ -47,6 +53,9 @@ if(document.cookie !== "") {
     text.empty();
     start.prop("disabled", false);
 }
+
+// Shouldn't be able to see these yet
+both.hide();
 
 // Allow the user to continue if they've typed at least two letters
 textEntry.on("keyup", function(){
@@ -60,8 +69,8 @@ start.click(function() {
 
     // Prepare the page
     text.empty();
-    both.css('visibility', 'visible');
-    this.style.display = 'none';
+    both.show();
+    start.hide();
 
     // Start the quiz
     numCorrect = 0;
@@ -93,8 +102,8 @@ next.click(function() {
 
 function finish() {
     // Clear out formatting and calculate score
-    options.fadeOut(fadeDuration, options.empty());
-    both.css('visibility', 'hidden');
+    options.empty();
+    both.hide();
     scores.forEach(function(score) {
         numCorrect += score;
     });
@@ -113,6 +122,7 @@ function loadNewQuestion(newQuestion) {
 
     // Show the question (add one because zero-indexing)
     question.text("Question " + (questionID+1) + ": " + newQuestion.question);
+
     // Show the choices
     loadNewChoices(newQuestion.choices);
 }
