@@ -1,36 +1,35 @@
 /**
  * Created by Alex on 28/07/2016.
  */
-/*
- TO DO
- 1 Show which questions were correct using a table and CSS
- 2 Animate question transition with JQuery
- 3 Store in an external JSON file
- 4 Add user authentication: allow users to log in, save login credentials to local storage (HTML5 browser storage)
- 5 Test on IE 8/9, fix bugs
- */
+// TODO: Test on IE 8/9 and fix bugs
 
-var questionID, numCorrect,
+// Variables dealing with the program itself
+var questionID = 0, numCorrect = 0,
     questions = [], scores = [], answers = [];
 
-var start = $("#start"), back = $("#back"),
-    next = $("#next"), both = back.add(next),
-    options = $("#options"), question = $("#question"),
-    questionBox = $("#questionBox"),
-    text = $("p"), textEntry = $("p input");
+// Variables dealing with startSpan
+var startSpan = $("#startSpan"), start = $("#start"),
+    welcome = $("#welcome"), text = $("#text"),
+    textIn = $("#input");
+
+// Variables dealing with questionSpan
+var questionSpan = $("#questionSpan"), question = $("#question"),
+    options = $("#options"),
+    back = $("#back"), next = $("#next");
 
 // Animation parameters
 var fadeDuration = 400;
 
+// Add variable-specific functions
 // Add a question to the given array (correct denotes the correct answer's index)
 questions.addQuestion = function(question, choices, correct) {
     // Make sure the index is within bounds
     if (correct < 0 || correct >= choices.length) return;
-    this.push({
+    this[questionID] = {
         question: question,
         choices: choices,
         correct: correct
-    });
+    };
 };
 
 // Records whether the user answered the current question correctly
@@ -42,7 +41,9 @@ scores.scoreAnswer = function () {
         this[questionID] = 0;
 };
 
+
 // Input questions here!
+// TODO: Store questions in an external JSON file
 questions.addQuestion(
     "Which Star Wars episode is the best?",
     ["1", "2", "3", "4", "5", "6", "7"],
@@ -52,42 +53,42 @@ questions.addQuestion(
     ["Shrek", "Inception"],
     0);
 
+// Shouldn't be able to see these yet
+questionSpan.hide();
+
 // If the cookie already exists, greet them!
 if(document.cookie !== "") {
-    question.append(", " + document.cookie);
+    welcome.append(", " + document.cookie);
     text.empty();
     start.prop("disabled", false);
 }
-
-// Shouldn't be able to see these yet
-both.hide();
+// TODO: Add user authentication: allow users to log in, save login credentials to local browser storage (HTML5 browser storage)
 
 // Allow the user to continue if they've typed at least two letters
-textEntry.on("keyup", function(){
+textIn.on("keyup", function(){
     start.prop("disabled", this.value.length <= 1);
 });
 
 start.click(function() {
     // Store their name if it's their first visit
     if(document.cookie === "")
-        document.cookie = textEntry.val();
+        document.cookie = textIn.val();
 
     // Prepare the page
-    text.empty();
-    both.show();
-    start.hide();
+    startSpan.hide();
+    questionSpan.show();
 
     // Start the quiz
-    numCorrect = 0;
-    if ((questionID = 0) < questions.length)
+    if (questionID < questions.length) {
         loadNewQuestion(questions[questionID]);
+    }
 });
 
 // Navigate back, retaining their previous answers
 back.click(function(){
     scores.pop();
 
-    fadeFunction(questionBox, fadeDuration,
+    fadeFunction(questionSpan, fadeDuration,
         loadNewQuestion, questions[--questionID]);
 
     // By way of client-side validation, we know that this question has been answered
@@ -99,38 +100,16 @@ next.click(function() {
     scores.scoreAnswer();
 
     if (++questionID < questions.length) {
-        fadeFunction(questionBox, fadeDuration,
+        fadeFunction(questionSpan, fadeDuration,
             loadNewQuestion, questions[questionID]);
         this.disabled = answers.length <= questionID;
     } else {
-        questionBox.hide(fadeDuration);
+        questionSpan.hide(fadeDuration);
         finish();
     }
 });
 
-/*
-Fades out the given DOM object over a given time (in ms, each way)
- around the function f and its parameters (optional).
- */
-function fadeFunction(object, time, f, params) {
-    params = params || null;
-    object.hide(time);
-    f(params);
-    object.show(time);
-}
-
-function finish() {
-    // Calculate score
-    scores.forEach(function(score) {
-        numCorrect += score;
-    });
-
-    // Show how well they did
-    var resultStr = "You got " + numCorrect + " out of " + questions.length + " correct.";
-    question.text("Results");
-    text.append(resultStr);
-}
-
+// Load a new question on the page
 function loadNewQuestion(newQuestion) {
     // Manage the visibility of the back button
     back.prop("disabled", false);
@@ -144,6 +123,7 @@ function loadNewQuestion(newQuestion) {
     loadNewChoices(newQuestion.choices);
 }
 
+// Clear old radio buttons and load the new ones
 function loadNewChoices(newChoices) {
     // Clear out any prior options
     options.empty();
@@ -158,7 +138,7 @@ function loadNewChoices(newChoices) {
 
         // See if the user has already answered the question
         if (index === answers[questionID])
-            radio.setAttribute("checked", true);
+            radio.setAttribute("checked", "true");
 
         // Update the stored answer on selection
         radio.addEventListener("click", function () {
@@ -169,4 +149,29 @@ function loadNewChoices(newChoices) {
         // Add the button, the text, and a newline
         options.append(radio, choice, "<br>");
     });
+}
+
+// Tidy up and display results
+function finish() {
+    // Calculate score
+    scores.forEach(function(score) {
+        numCorrect += score;
+    });
+
+    // Show how well they did
+    var resultStr = "You got " + numCorrect + " out of " + questions.length + " correct.";
+    question.text("Results");
+    text.append(resultStr);
+    // TODO: Show which questions were correct using a table and CSS
+}
+
+/*
+ Fades out the given DOM object over a given time (in ms, each way)
+ around the function f and its parameters (optional).
+ */
+function fadeFunction(object, time, f, params) {
+    params = params || null;
+    object.hide(time);
+    f(params);
+    object.show(time);
 }
