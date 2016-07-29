@@ -19,6 +19,9 @@ var start = $("#start"), back = $("#back"),
     questionBox = $("#questionBox"),
     text = $("p"), textEntry = $("p input");
 
+// Animation parameters
+var fadeDuration = 400;
+
 // Add a question to the given array (correct denotes the correct answer's index)
 questions.addQuestion = function(question, choices, correct) {
     // Make sure the index is within bounds
@@ -33,11 +36,13 @@ questions.addQuestion = function(question, choices, correct) {
 // Records whether the user answered the current question correctly
 scores.scoreAnswer = function () {
     var correctIndex = questions[questionID].correct;
-    if(answers[questionID] === correctIndex) this.push(1);
-else this.push(0);
+    if(answers[questionID] === correctIndex)
+        this[questionID] = 1;
+    else
+        this[questionID] = 0;
 };
 
-
+// Input questions here!
 questions.addQuestion(
     "Which Star Wars episode is the best?",
     ["1", "2", "3", "4", "5", "6", "7"],
@@ -94,7 +99,7 @@ next.click(function() {
 
     if (++questionID < questions.length) {
         loadNewQuestion(questions[questionID]);
-        this.disabled = answers.length >= questionID;
+        this.disabled = answers.length <= questionID;
     } else {
         finish();
     }
@@ -137,7 +142,7 @@ function loadNewChoices(newChoices) {
         radio.setAttribute("type", "radio");
         radio.setAttribute("name", "current");
         // Store which answer this radio button corresponds to
-        radio.setAttribute("value", index);
+        radio.setAttribute("value", "" + index);
 
         // See if the user has already answered the question
         if (index === answers[questionID])
