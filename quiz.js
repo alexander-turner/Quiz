@@ -87,10 +87,11 @@ start.click(function() {
 back.click(function(){
     scores.pop();
 
+    fadeFunction(questionBox, fadeDuration,
+        loadNewQuestion, questions[--questionID]);
+
     // By way of client-side validation, we know that this question has been answered
     next.prop("disabled", false);
-
-    loadNewQuestion(questions[--questionID]);
 });
 
 // If they've selected an answer, move on
@@ -98,17 +99,28 @@ next.click(function() {
     scores.scoreAnswer();
 
     if (++questionID < questions.length) {
-        loadNewQuestion(questions[questionID]);
+        fadeFunction(questionBox, fadeDuration,
+            loadNewQuestion, questions[questionID]);
         this.disabled = answers.length <= questionID;
     } else {
+        questionBox.hide(fadeDuration);
         finish();
     }
 });
 
+/*
+Fades out the given DOM object over a given time (in ms, each way)
+ around the function f and its parameters (optional).
+ */
+function fadeFunction(object, time, f, params) {
+    params = params || null;
+    object.hide(time);
+    f(params);
+    object.show(time);
+}
+
 function finish() {
-    // Clear out formatting and calculate score
-    options.empty();
-    both.hide();
+    // Calculate score
     scores.forEach(function(score) {
         numCorrect += score;
     });
