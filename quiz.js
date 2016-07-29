@@ -5,22 +5,24 @@
  TO DO
  1 Show which questions were correct using a table and CSS
  2 Animate question transition with JQuery
- 3 Client-side validation
- 4 Show back as disabled, not hidden
  */
 
 var questionID, numCorrect,
     questions = [], scores = [], answers = [];
 
 var start = $("#start"), back = $("#back"),
-    next = $("#next"), options = $("#options"),
-    question = $("#question"), textEntry = $("p input");
+    next = $("#next"), both = back.add(next),
+    options = $("#options"), question = $("#question"),
+    text = $("p"), textEntry = $("p input");
+
+var fadeDuration = 4000;
+
+//jQuery.fx.on();
 
 // Add a question to the given array (correct denotes the correct answer's index)
 questions.addQuestion = function(question, choices, correct) {
     // Make sure the index is within bounds
     if (correct < 0 || correct >= choices.length) return;
-
     this.push({
         question: question,
         choices: choices,
@@ -42,7 +44,7 @@ questions.addQuestion("Which movie is better?", ["Shrek", "Inception"], 0);
 // If the cookie already exists, greet them!
 if(document.cookie !== "") {
     question.append(", " + document.cookie);
-    $("p").empty();
+    text.empty();
     start.prop("disabled", false);
 }
 
@@ -57,8 +59,8 @@ start.click(function() {
         document.cookie = textEntry.val();
 
     // Prepare the page
-    $("p").empty();
-    [back, next].css('visibility', 'visible');
+    text.empty();
+    both.css('visibility', 'visible');
     this.style.display = 'none';
 
     // Start the quiz
@@ -83,7 +85,7 @@ next.click(function() {
 
     if (++questionID < questions.length) {
         loadNewQuestion(questions[questionID]);
-        this.disabled = answers[questionID] < 0;
+        this.disabled = answers.length >= questionID;
     } else {
         finish();
     }
@@ -91,8 +93,8 @@ next.click(function() {
 
 function finish() {
     // Clear out formatting and calculate score
-    options.empty();
-    [back, next].css('visibility', 'hidden');
+    options.fadeOut(fadeDuration, options.empty());
+    both.css('visibility', 'hidden');
     scores.forEach(function(score) {
         numCorrect += score;
     });
@@ -100,7 +102,7 @@ function finish() {
     // Show how well they did
     var resultStr = "You got " + numCorrect + " out of " + questions.length + " correct.";
     question.text("Results");
-    $("p").append(resultStr);
+    text.append(resultStr);
 }
 
 function loadNewQuestion(newQuestion) {
@@ -116,7 +118,6 @@ function loadNewQuestion(newQuestion) {
 }
 
 function loadNewChoices(newChoices) {
-    var options = options;
     // Clear out any prior options
     options.empty();
 
@@ -124,17 +125,17 @@ function loadNewChoices(newChoices) {
         // Create a new radio input
         var radio = document.createElement("INPUT");
         radio.setAttribute("type", "radio");
-        radio.setAttribute("name", "current"); // necessary?
+        radio.setAttribute("name", "current");
+        // Store which answer this radio button corresponds to
+        radio.setAttribute("value", index);
+
         // See if the user has already answered the question
         if (index === answers[questionID])
             radio.setAttribute("checked", true);
 
-        // Store which answer this radio button corresponds to
-        radio.setAttribute("value", index);
-
         // Update the stored answer on selection
         radio.addEventListener("click", function () {
-            answers[questionID] = this.value;
+            answers[questionID] = parseInt(this.value);
             next.prop("disabled", false);
         });
 
