@@ -10,7 +10,7 @@ var questionID = 0, numCorrect = 0,
 // Variables dealing with startSpan
 var startSpan = $("#startSpan"), start = $("#start"),
     welcome = $("#welcome"), text = $("#text"),
-    textIn = $("#input");
+    textIn = $("#textIn");
 
 // Variables dealing with questionSpan
 var questionSpan = $("#questionSpan"), question = $("#question"),
@@ -75,8 +75,9 @@ start.click(function() {
         document.cookie = textIn.val();
 
     // Prepare the page
-    startSpan.hide();
-    questionSpan.show();
+    welcome.empty();
+    startSpan.hide(fadeDuration);
+    questionSpan.show(fadeDuration);
 
     // Start the quiz
     if (questionID < questions.length) {
@@ -105,6 +106,7 @@ next.click(function() {
         this.disabled = answers.length <= questionID;
     } else {
         questionSpan.hide(fadeDuration);
+        startSpan.show(fadeDuration);
         finish();
     }
 });
