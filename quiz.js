@@ -7,9 +7,9 @@ var questionID = 0, numCorrect = 0,
 $.getJSON("questions.json", null, function(data) { questions = data; });
 
 // Variables dealing with startSpan
-var startSpan = $("#startSpan"), start = $("#start"),
-    welcome = $("#welcome"), text = $("#text"),
-    textIn = $("#textIn");
+var startSpan = $("#startSpan"), welcome = $("#welcome"),
+    text = $("#text"),
+    start = $("#start"), loginForm;
 
 // Variables dealing with questionSpan
 var questionSpan = $("#questionSpan"), question = $("#question"),
@@ -21,25 +21,12 @@ var fadeDuration = 400;
 
 // Shouldn't be able to see these yet
 questionSpan.hide();
+welcome.hide();
 
-// If the cookie already exists, greet them!
-if(document.cookie !== "") {
-    welcome.append(", " + document.cookie);
-    text.empty();
-    start.prop("disabled", false);
-}
-// TODO: Add user authentication: allow users to log in, save login credentials to local browser storage (HTML5 browser storage)
-
-// Allow the user to continue if they've typed at least two letters
-textIn.keyup(function(){
-    start.prop("disabled", this.value.length <= 1);
-});
+// Login process - useless at the moment, but good practice!
+populateLogin();
 
 start.click(function() {
-    // Store their name if it's their first visit
-    if(document.cookie === "")
-        document.cookie = textIn.val();
-
     // Prepare the page
     welcome.empty();
     startSpan.hide(fadeDuration);
@@ -58,7 +45,7 @@ back.click(function(){
     fadeFunction(questionSpan, fadeDuration,
         loadNewQuestion, questions[--questionID]);
 
-    // By way of client-side validation, we know that this question has been answered
+    // Via client-side validation, we know that this question has been answered
     next.prop("disabled", false);
 });
 
@@ -80,11 +67,85 @@ next.click(function() {
             loadNewQuestion, questions[questionID]);
         this.disabled = answers.length <= questionID;
     } else {
-        questionSpan.hide(fadeDuration);
-        startSpan.show(fadeDuration);
         finish();
     }
 });
+
+function populateLogin() {
+    // Create the form
+    loginForm = document.createElement('span');
+    loginForm.id = "loginForm";
+    start.before(loginForm);
+    loginForm = $("#loginForm");
+
+    // User has already logged in this session
+    if(sessionStorage.userName) {
+        finishLogin();
+        return;
+    }
+
+    // Append the fields
+    loginForm.append("Username: ");
+    var userField = document.createElement('input');
+    userField.type = "text";
+    userField.id = "userField";
+    loginForm.append(userField, "<br>");
+
+    loginForm.append("Password: ");
+    var passField = document.createElement('input');
+    passField.type = "password";
+    passField.id = "passField";
+    loginForm.append(passField, "<br>");
+
+    // Append the buttons
+    var loginButton = document.createElement('button');
+    loginButton.innerHTML = "Login";
+    loginButton.addEventListener("click", loginWrapper);
+    loginForm.append(loginButton);
+
+    // Append the buttons
+    var registerButton = document.createElement('button');
+    registerButton.innerHTML = "Register";
+    registerButton.addEventListener("click", registerWrapper);
+    loginForm.append(registerButton, "<br>");
+}
+
+// Login using the values in the input fields
+function loginWrapper() {
+    login($("#userField")[0].value, $("#passField")[0].value);
+}
+
+function login(username, password) {
+    if(localStorage.userName === username &&
+        localStorage.password === password)
+        finishLogin();
+
+    sessionStorage.userName = username;
+    sessionStorage.password = password;
+}
+
+function finishLogin() {
+    // Greet the user
+    welcome.show();
+    welcome.append(", " + sessionStorage.userName);
+    // Put away the login form
+    loginForm.empty();
+    // Allow the user to continue
+    start.prop("disabled", false);
+}
+
+// Register using the values in the input fields
+function registerWrapper() {
+    register($("#userField")[0].value, $("#passField")[0].value);
+}
+
+function register(username, password) {
+    localStorage.userName = username;
+    localStorage.password = password;
+    sessionStorage.userName = username;
+    sessionStorage.password = password;
+    finishLogin();
+}
 
 // Load a new question on the page
 function loadNewQuestion(newQuestion) {
@@ -130,6 +191,9 @@ function loadNewChoices(newChoices) {
 
 // Tidy up and display results
 function finish() {
+    questionSpan.hide(fadeDuration);
+    startSpan.show(fadeDuration);
+
     // Calculate score
     scores.forEach(function(score) {
         numCorrect += score;
