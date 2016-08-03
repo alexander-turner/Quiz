@@ -32,6 +32,12 @@ start.click(function() {
     startSpan.hide(fadeDuration);
     questionSpan.show(fadeDuration);
 
+    // Prepare the quiz
+    text.empty();
+    scores = [];
+    answers = [];
+    questionID = 0;
+
     // Start the quiz
     if (questionID < questions.length) {
         loadNewQuestion(questions[questionID]);
@@ -49,18 +55,9 @@ back.click(function(){
     next.prop("disabled", false);
 });
 
-// Records whether the user answered the current question correctly
-scores.scoreAnswer = function () {
-    var correctIndex = questions[questionID].correct;
-    if(answers[questionID] === correctIndex)
-        this[questionID] = 1;
-    else
-        this[questionID] = 0;
-};
-
 // If they've selected an answer, move on
 next.click(function() {
-    scores.scoreAnswer();
+    scoreAnswer();
 
     if (++questionID < questions.length) {
         fadeFunction(questionSpan, fadeDuration,
@@ -189,12 +186,22 @@ function loadNewChoices(newChoices) {
     });
 }
 
+// Records whether the user answered the current question correctly using scores
+function scoreAnswer () {
+    var correctIndex = questions[questionID].correct;
+    if(answers[questionID] === correctIndex)
+        scores[questionID] = 1;
+    else
+        scores[questionID] = 0;
+}
+
 // Tidy up and display results
 function finish() {
     questionSpan.hide(fadeDuration);
     startSpan.show(fadeDuration);
 
     // Calculate score
+    numCorrect = 0;
     scores.forEach(function(score) {
         numCorrect += score;
     });
@@ -204,6 +211,9 @@ function finish() {
     question.text("Results");
     text.append(resultStr);
     // TODO: Show which questions were correct using a table and CSS
+
+    // Prepare the quiz for another round
+    start.innerHTML = "Restart";
 }
 
 /*
