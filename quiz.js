@@ -76,7 +76,7 @@ function populateLogin() {
     loginForm = $("#loginForm");
 
     // User has already logged in this session
-    if(sessionStorage.userName) {
+    if(sessionStorage.username) {
         finishLogin();
         return;
     }
@@ -113,18 +113,18 @@ function loginWrapper() {
 }
 
 function login(username, password) {
-    if(localStorage.userName === username &&
+    if(localStorage.username === username &&
         localStorage.password === password)
         finishLogin();
-
-    sessionStorage.userName = username;
-    sessionStorage.password = password;
 }
 
 function finishLogin() {
+    // Save for the rest of the session
+    sessionStorage.username = localStorage.username;
+    sessionStorage.password = localStorage.password;
     // Greet the user
     welcome.show();
-    welcome.append(", " + sessionStorage.userName);
+    welcome.append(", " + sessionStorage.username);
     // Put away the login form
     loginForm.empty();
     // Allow the user to continue
@@ -137,9 +137,9 @@ function registerWrapper() {
 }
 
 function register(username, password) {
-    localStorage.userName = username;
+    localStorage.username = username;
     localStorage.password = password;
-    sessionStorage.userName = username;
+    sessionStorage.username = username;
     sessionStorage.password = password;
     finishLogin();
 }
