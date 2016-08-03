@@ -4,16 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="chrome">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
+
     <title>Quiz</title>
-    <link rel="stylesheet" type="text/css" href="">
+
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
-    </head>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+</head>
 <body>
 
-<h1>Quiz</h1>
+<div class="container">
+    <div class="page-header">
+        <h1>Quiz</h1>
+    </div>
+
+    <div class="jumbotron">
+        <p>Enter your login information:</p>
+        <!-- Login buttons - fix! -->
+        <div class="btn-group btn-group-large" role="group">
+            <button type="button" class="btn btn-default">Login</button>
+            <button type="button" class="btn btn-default">Register</button>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-lg btn-primary"
+            disabled="disabled">Start
+    </button>
+</div>
 
 <!-- Interfaces relating to the sign-in and cookie process -->
 <span id="startSpan">
@@ -33,10 +53,31 @@
     <button id="next" disabled="true">Next</button>
 </span>
 
+<!-- Put output table here -->
+<div class="container">
+    <div class="row">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <td colspan="12"><h3>Results</h3></td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Your answer</th>
+                <th class="text-center">Correct answer</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <!-- Put scripts here -->
 <script src="jQuery.js"></script>
 <!-- Latest compiled and minified JavaScript -->
-<script src="bootstrap.js"></script>
+<script src="Bootstrap/js/bootstrap.js"></script>
 <script src="quiz.js"></script>
 </body>
 </html>

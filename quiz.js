@@ -139,8 +139,6 @@ function registerWrapper() {
 function register(username, password) {
     localStorage.username = username;
     localStorage.password = password;
-    sessionStorage.username = username;
-    sessionStorage.password = password;
     finishLogin();
 }
 
@@ -189,10 +187,17 @@ function loadNewChoices(newChoices) {
 // Records whether the user answered the current question correctly using scores
 function scoreAnswer () {
     var correctIndex = questions[questionID].correct;
-    if(answers[questionID] === correctIndex)
-        scores[questionID] = 1;
-    else
-        scores[questionID] = 0;
+    // TODO: Change to boolean
+    scores[questionID] = answers[questionID] === correctIndex ? 1 : 0
+}
+
+function generateTable() {
+    questions.forEach(function(question, index) {
+        var row = document.createElement('tr');
+
+        var isCorrect = scores[index] == 1;
+        row.style = isCorrect ?  'correct' : 'wrong';
+    });
 }
 
 // Tidy up and display results
@@ -210,7 +215,7 @@ function finish() {
     var resultStr = "You got " + numCorrect + " out of " + questions.length + " correct.";
     question.text("Results");
     text.append(resultStr);
-    // TODO: Show which questions were correct using a table and CSS
+    generateTable();
 
     // Prepare the quiz for another round
     start.innerHTML = "Restart";
