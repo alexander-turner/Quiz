@@ -19,27 +19,6 @@ var questionSpan = $("#questionSpan"), question = $("#question"),
 // Animation parameters
 var fadeDuration = 400;
 
-// Variable-specific functions
-// Add a question to the given array (correct denotes the correct answer's index)
-questions.addQuestion = function(question, choices, correct) {
-    // Make sure the index is within bounds
-    if (correct < 0 || correct >= choices.length) return;
-    this.push({
-        question: question,
-        choices: choices,
-        correct: correct
-    });
-};
-
-// Records whether the user answered the current question correctly
-scores.scoreAnswer = function () {
-    var correctIndex = questions[questionID].correct;
-    if(answers[questionID] === correctIndex)
-        this[questionID] = 1;
-    else
-        this[questionID] = 0;
-};
-
 // Shouldn't be able to see these yet
 questionSpan.hide();
 
@@ -82,6 +61,15 @@ back.click(function(){
     // By way of client-side validation, we know that this question has been answered
     next.prop("disabled", false);
 });
+
+// Records whether the user answered the current question correctly
+scores.scoreAnswer = function () {
+    var correctIndex = questions[questionID].correct;
+    if(answers[questionID] === correctIndex)
+        this[questionID] = 1;
+    else
+        this[questionID] = 0;
+};
 
 // If they've selected an answer, move on
 next.click(function() {
