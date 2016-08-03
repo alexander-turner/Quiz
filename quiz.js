@@ -1,11 +1,10 @@
 /**
  * Created by Alex on 28/07/2016.
  */
-// TODO: Test on IE 8/9 and fix bugs
-
-// Variables dealing with the program itself
+// Variables dealing with the quiz itself
 var questionID = 0, numCorrect = 0,
-    questions = [], scores = [], answers = [];
+    scores = [], answers = [], questions = [];
+$.getJSON("questions.json", null, function(data) { questions = data; });
 
 // Variables dealing with startSpan
 var startSpan = $("#startSpan"), start = $("#start"),
@@ -20,7 +19,7 @@ var questionSpan = $("#questionSpan"), question = $("#question"),
 // Animation parameters
 var fadeDuration = 400;
 
-// Add variable-specific functions
+// Variable-specific functions
 // Add a question to the given array (correct denotes the correct answer's index)
 questions.addQuestion = function(question, choices, correct) {
     // Make sure the index is within bounds
@@ -40,18 +39,6 @@ scores.scoreAnswer = function () {
     else
         this[questionID] = 0;
 };
-
-
-// Input questions here!
-// TODO: Store questions in an external JSON file
-questions.addQuestion(
-    "Which Star Wars episode is the best?",
-    ["1", "2", "3", "4", "5", "6", "7"],
-    0);
-questions.addQuestion(
-    "Which movie is better?",
-    ["Shrek", "Inception"],
-    0);
 
 // Shouldn't be able to see these yet
 questionSpan.hide();
