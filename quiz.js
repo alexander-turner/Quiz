@@ -65,7 +65,7 @@ if(document.cookie !== "") {
 // TODO: Add user authentication: allow users to log in, save login credentials to local browser storage (HTML5 browser storage)
 
 // Allow the user to continue if they've typed at least two letters
-textIn.on("keyup", function(){
+textIn.keyup(function(){
     start.prop("disabled", this.value.length <= 1);
 });
 
