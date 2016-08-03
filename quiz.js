@@ -18,10 +18,14 @@ var questionSpan = $("#questionSpan"), question = $("#question"),
 
 // Animation parameters
 var fadeDuration = 400;
+start.value = "Restart";
+// Table parameters
+var tableBody = $("tbody");
 
 // Shouldn't be able to see these yet
 questionSpan.hide();
 welcome.hide();
+$("table").hide();
 
 // Login process - useless at the moment, but good practice!
 populateLogin();
@@ -34,6 +38,8 @@ start.click(function() {
 
     // Prepare the quiz
     text.empty();
+    $("table").hide();
+    tableBody.empty();
     scores = [];
     answers = [];
     questionID = 0;
@@ -187,16 +193,53 @@ function loadNewChoices(newChoices) {
 // Records whether the user answered the current question correctly using scores
 function scoreAnswer () {
     var correctIndex = questions[questionID].correct;
-    // TODO: Change to boolean
-    scores[questionID] = answers[questionID] === correctIndex ? 1 : 0
+    scores[questionID] = answers[questionID] === correctIndex ? 1 : 0;
 }
 
+/*
+Generates a table
+Format: # | question text | user's choice | correct choice
+ */
 function generateTable() {
-    questions.forEach(function(question, index) {
-        var row = document.createElement('tr');
+    // Generate the headers
+    var row = document.createElement('tr');
+    ["#", "Question", "Your answer", "Correct answer"].forEach(
+        function(str) {
+            var head = document.createElement('th');
+            head.className = "center-text";
+            head.innerHTML = str;
 
-        var isCorrect = scores[index] == 1;
-        row.style = isCorrect ?  'correct' : 'wrong';
+            row.appendChild(head);
+        });
+    tableBody.append(row);
+
+    // Fill in the data
+    questions.forEach(function(question, index) {
+        row = document.createElement('tr');
+        row.className = scores[index] ?  'correct' : 'incorrect';
+
+        // Insert the question number
+        var td = document.createElement('td');
+        td.innerHTML = index+1;
+        row.appendChild(td);
+
+        // Insert the question text
+        td = document.createElement('td');
+        td.innerHTML = question.question;
+        row.appendChild(td);
+
+        // Insert what they chose
+        td = document.createElement('td');
+        td.innerHTML = question.choices[answers[index]];
+        row.appendChild(td);
+
+        // Insert the correct choice
+        td = document.createElement('td');
+        td.innerHTML = question.choices[question.correct];
+        row.appendChild(td);
+
+        // Add it to the existing table
+        tableBody.append(row);
     });
 }
 
@@ -215,8 +258,10 @@ function finish() {
     var resultStr = "You got " + numCorrect + " out of " + questions.length + " correct.";
     question.text("Results");
     text.append(resultStr);
+    $("table").show();
     generateTable();
 
+    // TODO: Fix this relabeling
     // Prepare the quiz for another round
     start.innerHTML = "Restart";
 }

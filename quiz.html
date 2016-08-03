@@ -35,40 +35,35 @@
     </button>
 </div>
 
-<!-- Interfaces relating to the sign-in and cookie process -->
-<span id="startSpan">
-    <h3 id="welcome">Welcome</h3>
-    <span id="text"></span><br><br>
-    <button id="start" disabled="true">Start</button>
-</span>
-
-<!-- Interfaces relating to the quiz itself -->
-<span id="questionSpan">
-    <!-- Here's the question itself -->
-    <h3><span id="question"></span></h3>
-    <!-- Radio buttons will go here -->
-    <span id="options"></span><br>
-    <!-- The navigation controls -->
-    <button id="back">Back</button>
-    <button id="next" disabled="true">Next</button>
-</span>
-
-<!-- Put output table here -->
 <div class="container">
+    <!-- Interfaces relating to the sign-in and cookie process -->
+    <span id="startSpan">
+        <h3 id="welcome">Welcome</h3>
+        <span id="text"></span><br><br>
+        <button id="start" disabled="true">Start</button>
+    </span>
+
+    <!-- Interfaces relating to the quiz itself -->
+    <span id="questionSpan">
+        <!-- Here's the question itself -->
+        <h3><span id="question"></span></h3>
+        <!-- Radio buttons will go here -->
+        <span id="options"></span><br>
+        <!-- The navigation controls -->
+        <button id="back">Back</button>
+        <button id="next" disabled="true">Next</button>
+    </span>
+
+
+    <!-- Put output table here -->
     <div class="row">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <td colspan="12"><h3>Results</h3></td>
             </tr>
             </thead>
-
             <tbody>
-            <tr>
-                <th class="text-center">#</th>
-                <th class="text-center">Your answer</th>
-                <th class="text-center">Correct answer</th>
-            </tr>
             </tbody>
         </table>
     </div>

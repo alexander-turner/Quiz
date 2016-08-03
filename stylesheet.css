@@ -13,9 +13,9 @@
     margin-bottom: 0;
 }
 /* Table coloring */
-.wrong {
-    background-color:lightcoral;
-}
 .correct {
     background-color:lightgreen;
+}
+.incorrect {
+    background-color:lightcoral;
 }
