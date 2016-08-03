@@ -25,11 +25,11 @@ var fadeDuration = 400;
 questions.addQuestion = function(question, choices, correct) {
     // Make sure the index is within bounds
     if (correct < 0 || correct >= choices.length) return;
-    this[questionID] = {
+    this.push({
         question: question,
         choices: choices,
         correct: correct
-    };
+    });
 };
 
 // Records whether the user answered the current question correctly
