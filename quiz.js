@@ -177,7 +177,7 @@ function generateTable() {
     // Fill in the data
     questions.forEach(function(question, index) {
         row = document.createElement('tr');
-        row.className = scores[index] ?  'correct' : 'incorrect';
+        row.className = scores[index] ?  'success' : 'danger';
 
         // Insert the question number
         var td = document.createElement('td');

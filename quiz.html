@@ -16,10 +16,10 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="page-header">
-            <h1>Quiz</h1>
+            <h1>Quiz <small>The master-est of masterpieces</small></h1>
         </div>
     </div>
 
@@ -27,7 +27,7 @@
         <div class="jumbotron">
             <h3 id="welcome">Welcome</h3>
             <!-- Results table -->
-            <table class="table table-bordered">
+            <table class="table-responsive">
                 <thead>
                 <tr>
                     <td colspan="12"><h3>Results</h3></td>
@@ -37,8 +37,8 @@
                 </tbody>
             </table>
 
-            <!-- Login buttons will be generated here -->
-            <span id="loginForm">
+            <!-- Login interface here -->
+            <form id="loginForm">
                 <p>Username: <input type="text" id="userField"></p><br>
                 <p>Password: <input type="password" id="passField"></p><br>
                 <div class="btn-group btn-default" role="group">
@@ -52,7 +52,7 @@
                     </button>
                 </div>
                 <br><br>
-            </span>
+            </form>
 
             <button type="submit" class="btn btn-lg btn-primary"
                     id="start" disabled="disabled">Start
@@ -75,6 +75,14 @@
                 </div>
             </span>
         </div>
+    </div>
+
+    <div class="row">
+        <blockquote>
+            <p>I don't mean to brag, but I make a mean weed rat
+                stew.</p>
+            <small><cite>Shrek</cite></small>
+        </blockquote>
     </div>
 
 </div>
