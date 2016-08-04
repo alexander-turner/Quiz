@@ -19,7 +19,7 @@ var questionSpan = $("#questionSpan"), question = $("#question"),
 
 // Animation parameters
 var fadeDuration = 400;
-start.value = "Restart";
+
 // Table parameters
 var tableBody = $("tbody");
 
@@ -271,9 +271,8 @@ function finish() {
     $("table").show();
     generateTable();
 
-    // TODO: Fix this relabeling
     // Prepare the quiz for another round
-    start.innerHTML = "Restart";
+    start.html("Restart");
 }
 
 /*
