@@ -38,9 +38,23 @@
             </table>
 
             <!-- Login interface here -->
-            <form class="form-horizontal" id="loginForm">
-                <p>Username: <input type="text" id="userField"></p><br>
-                <p>Password: <input type="password" id="passField"></p><br>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="userField" class="control-label col-xs-2">
+                        Username</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control"
+                               id="userField" placeholder="Username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="passField" class="control-label col-xs-2">
+                        Password</label>
+                    <div class="col-xs-10">
+                        <input type="password" class="form-control"
+                               id="passField" placeholder="Password">
+                    </div>
+                </div>
                 <div class="btn-group btn-default" role="group">
                     <button type="button" class="btn btn-lg btn-primary"
                             id="login" onclick="loginWrapper()">

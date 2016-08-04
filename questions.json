@@ -19,5 +19,15 @@
       "Inception"
     ],
     "correct": 0
+  },
+  {
+    "question": "How much damage does Mercy's pistol deal with one bodyshot?",
+    "choices": [
+      "15",
+      "20",
+      "25",
+      "40"
+    ],
+    "correct": 1
   }
 ]

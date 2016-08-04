@@ -9,7 +9,7 @@ $.getJSON("questions.json", null, function(data) { questions = data; });
 // New bootstrap variables
 
 // Variables dealing with startSpan
-var loginForm = $("#loginForm"), welcome = $("#welcome"),
+var loginForm = $(".form-horizontal"), welcome = $("#welcome"),
     start = $("#start");
 
 // Variables dealing with questionSpan
