@@ -2,6 +2,11 @@
     background-color:#2E2D88;
     color:white;
 }
+
+.jumbotron input {
+    color:black;
+}
+
 /* Adds borders for tabs */
 .tab-content {
     border-left: 1px solid #ddd;

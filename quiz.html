@@ -17,44 +17,63 @@
 <body>
 
 <div class="container">
-    <div class="page-header">
-        <h1>Quiz</h1>
+    <div class="row">
+        <div class="page-header">
+            <h1>Quiz</h1>
+        </div>
     </div>
 
-    <div class="jumbotron">
-        <h3 id="welcome">Welcome</h3>
-        <!-- Results table -->
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <td colspan="12"><h3>Results</h3></td>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="jumbotron">
+            <h3 id="welcome">Welcome</h3>
+            <!-- Results table -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <td colspan="12"><h3>Results</h3></td>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
 
-        <!-- Login buttons will be generated here -->
-        <button type="submit" class="btn btn-lg btn-primary"
-                id="start" disabled="disabled">Start
-        </button>
-
-        <!-- Interfaces relating to the quiz itself -->
-        <span id="questionSpan">
-            <!-- Here's the question itself -->
-            <h3><span id="question"></span></h3>
-            <!-- Radio buttons will go here -->
-            <span id="options"></span><br>
-            <!-- The navigation controls -->
-            <div class="btn-group btn-default" role="group">
-                <button type="button" class="btn btn-lg btn-primary" id="back">
-                    Back
-                </button>
-                <button type="button" class="btn btn-lg btn-primary"
-                        id="next" disabled="disabled">Next
-                </button>
-            </div>
-        </span>
+            <!-- Login buttons will be generated here -->
+            <span id="loginForm">
+                <p>Username: <input type="text" id="userField"></p><br>
+                <p>Password: <input type="password" id="passField"></p><br>
+                <div class="btn-group btn-default" role="group">
+                    <button type="button" class="btn btn-lg btn-primary"
+                            id="login" onclick="loginWrapper()">
+                        Login
+                    </button>
+                    <button type="button" class="btn btn-lg btn-primary"
+                            id="register" onclick="registerWrapper()">
+                        Register
+                    </button>
+                </div>
+            </span>
+            <br><br>
+            <button type="submit" class="btn btn-lg btn-primary"
+                    id="start" disabled="disabled">Start
+            </button>
+            <!-- Interfaces relating to the quiz itself -->
+            <span id="questionSpan">
+                <!-- Here's the question itself -->
+                <h3><span id="question"></span></h3>
+                <!-- Radio buttons will go here -->
+                <span id="options"></span><br>
+                <!-- The navigation controls -->
+                <div class="btn-group btn-default" role="group">
+                    <button type="button" class="btn btn-lg btn-primary"
+                            id="back">
+                        Back
+                    </button>
+                    <button type="button" class="btn btn-lg btn-primary"
+                            id="next" disabled="disabled">Next
+                    </button>
+                </div>
+            </span>
+        </div>
     </div>
 
 </div>

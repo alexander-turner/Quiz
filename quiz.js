@@ -9,7 +9,7 @@ $.getJSON("questions.json", null, function(data) { questions = data; });
 // New bootstrap variables
 
 // Variables dealing with startSpan
-var startSpan = $("#startSpan"), welcome = $("#welcome"),
+var loginForm = $("#loginForm"), welcome = $("#welcome"),
     start = $("#start"), loginForm;
 
 // Variables dealing with questionSpan
@@ -25,15 +25,15 @@ var tableBody = $("tbody");
 
 // Shouldn't be able to see these yet
 questionSpan.hide();
-welcome.hide();
 $("table").hide();
 
-// Login process - useless at the moment, but good practice!
-populateLogin();
+// User has already logged in this session
+if (sessionStorage.username)
+    finishLogin();
 
 start.click(function() {
     // Prepare the page
-    welcome.empty();
+    welcome.hide();
     questionSpan.show(fadeDuration);
 
     // Prepare the quiz
@@ -74,55 +74,6 @@ next.click(function() {
     }
 });
 
-function populateLogin() {
-    // Create the form
-    loginForm = document.createElement('span');
-    loginForm.id = "loginForm";
-    start.before(loginForm);
-    loginForm = $("#loginForm");
-
-    // User has already logged in this session
-    if(sessionStorage.username) {
-        finishLogin();
-        return;
-    }
-
-    // Append the fields
-    loginForm.append("Username: ");
-    var userField = document.createElement('input');
-    userField.type = "text";
-    userField.id = "userField";
-    loginForm.append(userField, "<br>");
-
-    loginForm.append("Password: ");
-    var passField = document.createElement('input');
-    passField.type = "password";
-    passField.id = "passField";
-    loginForm.append(passField, "<br>");
-
-    var buttonGroup = document.createElement('div');
-    buttonGroup.class = "btn-group btn-group-large";
-    buttonGroup.role = "group";
-
-    // Append the buttons
-    var loginButton = document.createElement('button');
-    loginButton.type = "button";
-    loginButton.type = "btn btn-default";
-    loginButton.innerHTML = "Login";
-    loginButton.addEventListener("click", loginWrapper);
-    buttonGroup.appendChild(loginButton);
-
-    // Append the buttons
-    var registerButton = document.createElement('button');
-    registerButton.type = "button";
-    registerButton.type = "btn btn-default";
-    registerButton.innerHTML = "Register";
-    registerButton.addEventListener("click", registerWrapper);
-    buttonGroup.appendChild(registerButton);
-
-    loginForm.append(buttonGroup);
-}
-
 // Login using the values in the input fields
 function loginWrapper() {
     login($("#userField")[0].value, $("#passField")[0].value);
@@ -142,7 +93,7 @@ function finishLogin() {
     welcome.show();
     welcome.append(", " + sessionStorage.username);
     // Put away the login form
-    loginForm.empty();
+    loginForm.hide();
     // Allow the user to continue
     start.prop("disabled", false);
 }
