@@ -13,6 +13,9 @@
     margin-bottom: 0;
 }
 /* Table coloring */
+.correct, .incorrect {
+    color:black;
+}
 .correct {
     background-color:lightgreen;
 }

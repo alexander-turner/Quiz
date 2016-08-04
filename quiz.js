@@ -6,9 +6,10 @@ var questionID = 0, numCorrect = 0,
     scores = [], answers = [], questions = [];
 $.getJSON("questions.json", null, function(data) { questions = data; });
 
+// New bootstrap variables
+
 // Variables dealing with startSpan
 var startSpan = $("#startSpan"), welcome = $("#welcome"),
-    text = $("#text"),
     start = $("#start"), loginForm;
 
 // Variables dealing with questionSpan
@@ -36,7 +37,6 @@ start.click(function() {
     questionSpan.show(fadeDuration);
 
     // Prepare the quiz
-    text.empty();
     $("table").hide();
     tableBody.empty();
     scores = [];
@@ -47,7 +47,7 @@ start.click(function() {
     if (questionID < questions.length) {
         loadNewQuestion(questions[questionID]);
     }
-    this.hide();
+    start.hide();
 });
 
 // Navigate back, retaining their previous answers
@@ -256,7 +256,7 @@ function generateTable() {
 // Tidy up and display results
 function finish() {
     questionSpan.hide(fadeDuration);
-    startSpan.show(fadeDuration);
+    start.show(fadeDuration);
 
     // Calculate score
     numCorrect = 0;
@@ -267,7 +267,7 @@ function finish() {
     // Show how well they did
     var resultStr = "You got " + numCorrect + " out of " + questions.length + " correct.";
     question.text("Results");
-    text.append(resultStr);
+    welcome.append(resultStr);
     $("table").show();
     generateTable();
 

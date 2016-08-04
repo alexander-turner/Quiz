@@ -23,29 +23,7 @@
 
     <div class="jumbotron">
         <h3 id="welcome">Welcome</h3>
-        <!-- Login buttons will be generated here -->
-        <button type="submit" class="btn btn-lg btn-primary"
-                id="start" disabled="disabled">Start
-        </button>
-    </div>
-
-
-</div>
-
-<div class="container">
-    <!-- Interfaces relating to the quiz itself -->
-    <span id="questionSpan">
-        <!-- Here's the question itself -->
-        <h3><span id="question"></span></h3>
-        <!-- Radio buttons will go here -->
-        <span id="options"></span><br>
-        <!-- The navigation controls -->
-        <button id="back">Back</button>
-        <button id="next" disabled="true">Next</button>
-    </span>
-
-    <!-- Put output table here -->
-    <div class="row">
+        <!-- Results table -->
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -55,7 +33,30 @@
             <tbody>
             </tbody>
         </table>
+
+        <!-- Login buttons will be generated here -->
+        <button type="submit" class="btn btn-lg btn-primary"
+                id="start" disabled="disabled">Start
+        </button>
+
+        <!-- Interfaces relating to the quiz itself -->
+        <span id="questionSpan">
+            <!-- Here's the question itself -->
+            <h3><span id="question"></span></h3>
+            <!-- Radio buttons will go here -->
+            <span id="options"></span><br>
+            <!-- The navigation controls -->
+            <div class="btn-group btn-default" role="group">
+                <button type="button" class="btn btn-lg btn-primary" id="back">
+                    Back
+                </button>
+                <button type="button" class="btn btn-lg btn-primary"
+                        id="next" disabled="disabled">Next
+                </button>
+            </div>
+        </span>
     </div>
+
 </div>
 
 <!-- Put scripts here -->
