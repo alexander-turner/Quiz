@@ -22,27 +22,17 @@
     </div>
 
     <div class="jumbotron">
-        <p>Enter your login information:</p>
-        <!-- Login buttons - fix! -->
-        <div class="btn-group btn-group-large" role="group">
-            <button type="button" class="btn btn-default">Login</button>
-            <button type="button" class="btn btn-default">Register</button>
-        </div>
+        <h3 id="welcome">Welcome</h3>
+        <!-- Login buttons will be generated here -->
+        <button type="submit" class="btn btn-lg btn-primary"
+                id="start" disabled="disabled">Start
+        </button>
     </div>
 
-    <button type="submit" class="btn btn-lg btn-primary"
-            disabled="disabled">Start
-    </button>
+
 </div>
 
 <div class="container">
-    <!-- Interfaces relating to the sign-in and cookie process -->
-    <span id="startSpan">
-        <h3 id="welcome">Welcome</h3>
-        <span id="text"></span><br><br>
-        <button id="start" disabled="true">Start</button>
-    </span>
-
     <!-- Interfaces relating to the quiz itself -->
     <span id="questionSpan">
         <!-- Here's the question itself -->
@@ -53,7 +43,6 @@
         <button id="back">Back</button>
         <button id="next" disabled="true">Next</button>
     </span>
-
 
     <!-- Put output table here -->
     <div class="row">

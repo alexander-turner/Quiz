@@ -33,7 +33,6 @@ populateLogin();
 start.click(function() {
     // Prepare the page
     welcome.empty();
-    startSpan.hide(fadeDuration);
     questionSpan.show(fadeDuration);
 
     // Prepare the quiz
@@ -48,6 +47,7 @@ start.click(function() {
     if (questionID < questions.length) {
         loadNewQuestion(questions[questionID]);
     }
+    this.hide();
 });
 
 // Navigate back, retaining their previous answers
@@ -100,17 +100,27 @@ function populateLogin() {
     passField.id = "passField";
     loginForm.append(passField, "<br>");
 
+    var buttonGroup = document.createElement('div');
+    buttonGroup.class = "btn-group btn-group-large";
+    buttonGroup.role = "group";
+
     // Append the buttons
     var loginButton = document.createElement('button');
+    loginButton.type = "button";
+    loginButton.type = "btn btn-default";
     loginButton.innerHTML = "Login";
     loginButton.addEventListener("click", loginWrapper);
-    loginForm.append(loginButton);
+    buttonGroup.appendChild(loginButton);
 
     // Append the buttons
     var registerButton = document.createElement('button');
+    registerButton.type = "button";
+    registerButton.type = "btn btn-default";
     registerButton.innerHTML = "Register";
     registerButton.addEventListener("click", registerWrapper);
-    loginForm.append(registerButton, "<br>");
+    buttonGroup.appendChild(registerButton);
+
+    loginForm.append(buttonGroup);
 }
 
 // Login using the values in the input fields
