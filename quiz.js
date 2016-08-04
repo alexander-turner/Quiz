@@ -10,7 +10,7 @@ $.getJSON("questions.json", null, function(data) { questions = data; });
 
 // Variables dealing with startSpan
 var loginForm = $("#loginForm"), welcome = $("#welcome"),
-    start = $("#start"), loginForm;
+    start = $("#start");
 
 // Variables dealing with questionSpan
 var questionSpan = $("#questionSpan"), question = $("#question"),
@@ -21,11 +21,11 @@ var questionSpan = $("#questionSpan"), question = $("#question"),
 var fadeDuration = 400;
 
 // Table parameters
-var tableBody = $("tbody");
+var table = $("table"), tableBody = $("tbody");
 
 // Shouldn't be able to see these yet
 questionSpan.hide();
-$("table").hide();
+table.hide();
 
 // User has already logged in this session
 if (sessionStorage.username)
@@ -37,7 +37,7 @@ start.click(function() {
     questionSpan.show(fadeDuration);
 
     // Prepare the quiz
-    $("table").hide();
+    table.hide();
     tableBody.empty();
     scores = [];
     answers = [];
@@ -219,11 +219,12 @@ function finish() {
     var resultStr = "You got " + numCorrect + " out of " + questions.length + " correct.";
     question.text("Results");
     welcome.append(resultStr);
-    $("table").show();
+    table.show();
     generateTable();
 
     // Prepare the quiz for another round
     start.html("Restart");
+    next.prop("disabled", "disabled");
 }
 
 /*
