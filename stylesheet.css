@@ -7,6 +7,10 @@
     color:black;
 }
 
+.btn-group, button:disabled {
+    background-color: transparent;
+}
+
 /* Adds borders for tabs */
 .tab-content {
     border-left: 1px solid #ddd;
@@ -20,10 +24,4 @@
 /* Table coloring */
 .success, .danger {
     color:black;
-}
-.correct {
-    background-color:lightgreen;
-}
-.incorrect {
-    background-color:lightcoral;
 }
