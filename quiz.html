@@ -41,7 +41,8 @@
             <form class="form-horizontal">
                 <div class="form-group">
                     <label for="userField" class="control-label col-xs-2">
-                        Username</label>
+                        Username
+                    </label>
                     <div class="col-xs-10">
                         <input type="text" class="form-control"
                                id="userField" placeholder="Username">
@@ -49,23 +50,25 @@
                 </div>
                 <div class="form-group">
                     <label for="passField" class="control-label col-xs-2">
-                        Password</label>
+                        Password
+                    </label>
                     <div class="col-xs-10">
                         <input type="password" class="form-control"
                                id="passField" placeholder="Password">
                     </div>
                 </div>
-                <div class="btn-group btn-default" role="group">
-                    <button type="button" class="btn btn-lg btn-primary"
-                            id="login" onclick="loginWrapper()">
-                        Login
-                    </button>
-                    <button type="button" class="btn btn-lg btn-primary"
-                            id="register" onclick="registerWrapper()">
-                        Register
-                    </button>
+                <div class="form-group">
+                    <div class="btn-group col-xs-offset-2 col-xs-10">
+                        <button type="submit" class="btn btn-primary"
+                                onclick="loginWrapper()">
+                            Login
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                onclick="registerWrapper()">
+                            Register
+                        </button>
+                    </div>
                 </div>
-                <br><br>
             </form>
 
             <button type="submit" class="btn btn-lg btn-primary"
@@ -79,12 +82,13 @@
                 <span id="options"></span><br>
                 <!-- The navigation controls -->
                 <div class="btn-group btn-default" role="group">
-                    <button type="button" class="btn btn-lg btn-primary"
+                    <button type="button" class="btn btn-primary"
                             id="back">
                         Back
                     </button>
-                    <button type="button" class="btn btn-lg btn-primary"
-                            id="next" disabled="disabled">Next
+                    <button type="button" class="btn btn-primary"
+                            id="next" disabled="disabled">
+                        Next
                     </button>
                 </div>
             </span>
