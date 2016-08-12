@@ -66,8 +66,6 @@ back.click(function(){
     next.prop("disabled", false);
 });
 
-//TODO: Change text to 'finish' and style to 'btn-warning'if it's the last
-// question
 // If they've selected an answer, move on
 next.click(function() {
     scoreAnswer();
@@ -77,6 +75,7 @@ next.click(function() {
             loadNewQuestion, questions[questionID]);
         // See if this is second-to-last question
         if (questionID + 1 === questions.length) {
+            // Warn the user
             next.addClass('btn-warning');
             this.innerHTML = 'Finish';
         }
