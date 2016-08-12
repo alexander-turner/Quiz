@@ -57,6 +57,10 @@ back.click(function(){
 
     fadeFunction(questionSpan, fadeDuration,
         loadNewQuestion, questions[--questionID]);
+    if(next.hasClass('btn-warning')) {
+        next.removeClass('btn-warning');
+        next.text('Next');
+    }
 
     // Via client-side validation, we know that this question has been answered
     next.prop("disabled", false);
@@ -72,8 +76,10 @@ next.click(function() {
         fadeFunction(questionSpan, fadeDuration,
             loadNewQuestion, questions[questionID]);
         // See if this is second-to-last question
-        if (questionID + 1 === questions.length)
-            this.class += 'btn-warning';
+        if (questionID + 1 === questions.length) {
+            next.addClass('btn-warning');
+            this.innerHTML = 'Finish';
+        }
         this.disabled = answers.length <= questionID;
     } else {
         finish();
@@ -232,6 +238,8 @@ function finish() {
     // Prepare the quiz for another round
     start.html("Restart");
     next.prop("disabled", "disabled");
+    next.removeClass('btn-warning');
+    next.text('Next');
 }
 
 /*
