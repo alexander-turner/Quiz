@@ -25,6 +25,7 @@ var table = $("table"), tableBody = $("tbody");
 
 // Shouldn't be able to see these yet
 questionSpan.hide();
+start.hide();
 table.hide();
 
 // User has already logged in this session
@@ -70,6 +71,9 @@ next.click(function() {
     if (++questionID < questions.length) {
         fadeFunction(questionSpan, fadeDuration,
             loadNewQuestion, questions[questionID]);
+        // See if this is second-to-last question
+        if (questionID + 1 === questions.length)
+            this.class += 'btn-warning';
         this.disabled = answers.length <= questionID;
     } else {
         finish();
@@ -98,6 +102,7 @@ function finishLogin() {
     loginForm.hide();
     // Allow the user to continue
     start.prop("disabled", false);
+    start.show();
 }
 
 // Register using the values in the input fields
