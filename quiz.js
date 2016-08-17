@@ -3,8 +3,9 @@
  */
 // Variables dealing with the quiz itself
 var questionID = 0, numCorrect = 0,
-    scores = [], answers = [], questions = [];
-$.getJSON("questions.json", null, function(data) { questions = data; });
+    scores = [], answers = [], questions;
+
+// TODO: Load questions and generate page based on tabs
 
 // New bootstrap variables
 
@@ -27,6 +28,9 @@ var table = $("table"), tableBody = $("tbody");
 questionSpan.hide();
 start.hide();
 table.hide();
+
+// Get the questions going
+retrieveQuestions("questions.json", "Overwatch");
 
 // User has already logged in this session
 if (sessionStorage.username)
@@ -119,6 +123,32 @@ function register(username, password) {
     localStorage.username = username;
     localStorage.password = password;
     finishLogin();
+}
+/*
+Pre-conditions:
+ jsonFile is the path to a valid quiz array:
+ [ {"quizName": "name",
+    "questions": [{
+                 "question": "Question text",
+                 "choices": ["A", "B", "C"],
+                 "correct": 1
+                 }]
+   },...
+ ]
+Post-conditions:
+ Using the global var 'questions', load the quiz's questions.
+ If no quiz name is given, the first entry in the file's array will be used.
+ */
+function retrieveQuestions(jsonFile, name) {
+    $.getJSON(jsonFile, null, function(data) {
+        data = data.quizzes; // Alias for brevity
+        if (name)
+            questions = data.find(function(entry) {
+                return entry.quizName === name;
+            }).questions;
+        else // no name given
+            questions = data[0].questions;
+    });
 }
 
 // Load a new question on the page

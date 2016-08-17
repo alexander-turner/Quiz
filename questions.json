@@ -1,53 +1,55 @@
-[
-  {
-    "quizName": "Overwatch",
-    "questions": [
-      {
-        "question": "You need a support. Which class will your allies choose?",
-        "choices": [
-          "Mercy",
-          "Zenyatta",
-          "Widowmaker",
-          "Lúcio"
-        ],
-        "correct": 2
-      },
-      {
-        "question": "How much damage does Mercy's pistol deal for one bodyshot?",
-        "choices": [
-          "15",
-          "20",
-          "25",
-          "40"
-        ],
-        "correct": 1
-      }
-    ]
-  },
-  {
-    "quizName": "Star Wars",
-    "questions": [
-      {
-        "question": "Which Star Wars episode is the best?",
-        "choices": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6",
-          "7"
-        ],
-        "correct": 0
-      },
-      {
-        "question": "Who would win?",
-        "choices": [
-          "Han Solo",
-          "Kylo Ren"
-        ],
-        "correct": 1
-      }
-    ]
-  }
-]
+{
+  "quizzes": [
+    {
+      "quizName": "Overwatch",
+      "questions": [
+        {
+          "question": "You need a support. Which character will your allies choose?",
+          "choices": [
+            "Mercy",
+            "Zenyatta",
+            "Widowmaker",
+            "Lúcio"
+          ],
+          "correct": 2
+        },
+        {
+          "question": "How much damage does Mercy's pistol deal for one bodyshot?",
+          "choices": [
+            "15",
+            "20",
+            "25",
+            "40"
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "quizName": "Star Wars",
+      "questions": [
+        {
+          "question": "Which Star Wars episode is the best?",
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "correct": 0
+        },
+        {
+          "question": "Who would win?",
+          "choices": [
+            "Han Solo",
+            "Kylo Ren"
+          ],
+          "correct": 1
+        }
+      ]
+    }
+  ]
+}
